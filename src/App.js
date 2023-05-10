@@ -1,9 +1,13 @@
-import './App.css';
+import Jogo from './Jogo';
+import Letras from './Letras';
+import palavras from './palavras';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>React limpo</h1>
+      <Jogo/>
+      <Letras/>
     </div>
   );
 }
