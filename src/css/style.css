@@ -28,15 +28,33 @@ body {
 }
 
 .button-key {
-    background: #E1ECF4;
+
     width: 40px;
     height: 40px;
     display: flex;
     justify-Content: center;
     align-Items: center;
     color: #39739D;
-    border: 1px solid #7AA7C7;
+    background: #E1ECF4;
     font-Weight: bold;
+    border: 1px solid #7AA7C7;
+    border-Radius: 3px;
+    margin-Bottom: 7px;
+    margin: 7px;
+    font-Size: 16px;
+}
+
+.button-key:disabled {
+
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-Content: center;
+    align-Items: center;
+    color: #798A9F;
+    background: #9FAAB5;
+    font-Weight: bold;
+    border: 1px solid #7AA7C7;
     border-Radius: 3px;
     margin-Bottom: 7px;
     margin: 7px;
@@ -91,4 +109,9 @@ body {
     margin-Left: 5px;
     border-Bottom: 3px solid black
 }
+
+.display-none {
+    display: none;
+}
+
 /* CSS do Jogo.js (fim) */
