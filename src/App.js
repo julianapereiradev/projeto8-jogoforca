@@ -5,9 +5,11 @@ import palavras from './palavras';
 
 function App() {
   return (
-    <div className="App">
-      <Jogo/>
-      <Letras/>
+    <div className='App'>
+      <Jogo />
+      <div className='keyboard-center'>
+        <Letras />
+      </div>
     </div>
   );
 }

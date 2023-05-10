@@ -1,12 +1,27 @@
+import forca0 from './assets/forca0.png'
+
 export default function Jogo() {
     return (
-        <div>
-            <h3>Componentização do Jogo</h3>
-            <h4>Aqui vai entrar:
-            - imagem da forca, 
-            - botão de iniciar,
-            - palavra do jogo
-            </h4>
+        <div className="board-container">
+            <div className="board-left">
+                <img src={forca0} />
+            </div>
+            <div className='board-right'>
+                <button className='button-sort-word'>
+                    Escolher Palavra
+                </button>
+                <div className='letter-container'>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                    <p className='letter-underline'></p>
+                </div>
+            </div>
         </div>
+
     )
 }

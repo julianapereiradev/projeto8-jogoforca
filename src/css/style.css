@@ -1,4 +1,94 @@
 body {
     box-sizing: border-box;
-    background-color: red;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+/* CSS do App.js (início) */
+.App {
+    margin: 40px;
+}
+
+.keyboard-center {
+    display: flex;
+    justify-Content: center;
+    align-Items: center
+}
+
+/* CSS do App.js (fim) */
+
+
+
+/* CSS do Letras.js (início) */
+.keyboard-container {
+    width: 750px;
+    display: flex;
+    flex-Wrap: wrap;
+    justify-Content: center;
+    align-Items: center
+}
+
+.button-key {
+    background: #E1ECF4;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-Content: center;
+    align-Items: center;
+    color: #39739D;
+    border: 1px solid #7AA7C7;
+    font-Weight: bold;
+    border-Radius: 3px;
+    margin-Bottom: 7px;
+    margin: 7px;
+    font-Size: 16px
+}
+
+/* CSS do Letras.js (fim) */
+
+
+
+/* CSS do Jogo.js (início) */
+.board-container {
+    display: flex;
+    flex-Direction: row;
+    justify-Content: space-between
+}
+
+.board-left img {
+    width: 500px;
+}
+
+.board-right {
+    display: flex;
+    flex-Direction: column;
+    align-Items: end;
+    justify-Content: space-between;
+    margin-Right: 70px;
+    margin-Bottom: 70px;
+    margin-Top: 50px
+}
+
+.button-sort-word {
+    background-Color: #27AE60;
+    color: #FFFFFF;
+    border: none;
+    border-Radius: 8px;
+    width: 200px;
+    height: 60px;
+    font-Weight: bold;
+    font-Size: 20px
+}
+
+.letter-container {
+    display: flex;
+    flex-Direction: row
+}
+
+.letter-underline {
+    width: 40px;
+    height: 40px;
+    margin-Right: 5px;
+    margin-Left: 5px;
+    border-Bottom: 3px solid black
+}
+/* CSS do Jogo.js (fim) */

@@ -1,10 +1,14 @@
 export default function Letras() {
+
+    const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
     return (
-        <div>
-            <h3>Componentização das Letras</h3>
-            <h4>Aqui vai entrar:
-            - conjunto de botões com as letras
-            </h4>
+        <div className="keyboard-container">
+            {alfabeto.map((letra) =>
+                <button className="button-key">
+                    <p>{letra.toUpperCase()}</p>
+                </button>
+            )}
         </div>
     )
 }
