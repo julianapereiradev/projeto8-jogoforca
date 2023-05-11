@@ -1,71 +1,20 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-/* CSS do App.js (início) */
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
 .App {
     margin: 40px;
 }
 
-.keyboard-center {
-    display: flex;
-    justify-Content: center;
-    align-Items: center
-}
-
-/* CSS do App.js (fim) */
-
-
-
-/* CSS do Letras.js (início) */
-.keyboard-container {
-    width: 750px;
-    display: flex;
-    flex-Wrap: wrap;
-    justify-Content: center;
-    align-Items: center
-}
-
-.button-key {
-
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-Content: center;
-    align-Items: center;
-    color: #39739D;
-    background: #E1ECF4;
-    font-Weight: bold;
-    border: 1px solid #7AA7C7;
-    border-Radius: 3px;
-    margin-Bottom: 7px;
-    margin: 7px;
-    font-Size: 16px;
-}
-
-.button-key:disabled {
-
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-Content: center;
-    align-Items: center;
-    color: #798A9F;
-    background: #9FAAB5;
-    font-Weight: bold;
-    border: 1px solid #7AA7C7;
-    border-Radius: 3px;
-    margin-Bottom: 7px;
-    margin: 7px;
-    font-Size: 16px
-}
-
-/* CSS do Letras.js (fim) */
-
-
-
-/* CSS do Jogo.js (início) */
 .board-container {
     display: flex;
     flex-Direction: row;
@@ -97,21 +46,63 @@ body {
     font-Size: 20px
 }
 
-.letter-container {
-    display: flex;
-    flex-Direction: row
-}
-
-.letter-underline {
-    width: 40px;
-    height: 40px;
-    margin-Right: 5px;
-    margin-Left: 5px;
-    border-Bottom: 3px solid black
-}
-
 .display-none {
     display: none;
 }
 
-/* CSS do Jogo.js (fim) */
+.spaces {
+    margin-right: 0px;
+    margin-top: 150px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 80px;
+    margin-left: 10px;
+}
+
+.win {
+    color: #00c04b;
+}
+
+.lose {
+    color: red;
+}
+
+.keyboard-center {
+    display: flex;
+    justify-Content: center;
+    align-Items: center
+}
+
+.keyboard-container {
+    width: 750px;
+    display: flex;
+    flex-Wrap: wrap;
+    justify-Content: center;
+    align-Items: center
+}
+
+.letter {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-Content: center;
+    align-Items: center;
+    font-Weight: bold;
+    border-Radius: 3px;
+    margin-Bottom: 7px;
+    margin: 7px;
+    font-Size: 16px;
+}
+
+.disabled {
+    border: 1px solid #7AA7C7;
+    color: #798A9F;
+    background: #9FAAB5;
+}
+
+.enabled {
+    border: 1px solid #7AA7C7;
+    color: #39739D;
+    background: #E1ECF4;
+}
+
