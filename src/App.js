@@ -42,7 +42,7 @@ export default function App() {
       const newEncriptedArray = [...palavraEncripted];
       for (let i = 0; i < palavraArray.length; i++) {
         if (palavraArray[i] === lt) {
-          newEncriptedArray[i] = lt.toLocaleUpperCase();
+          newEncriptedArray[i] = lt.toLocaleLowerCase();
         }
       }
       setEncripted(newEncriptedArray);
