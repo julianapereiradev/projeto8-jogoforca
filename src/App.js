@@ -35,27 +35,27 @@ import forca4 from "./assets/forca4.png"
 import forca5 from "./assets/forca5.png"
 import forca6 from "./assets/forca6.png"
 
-palavras.sort(comparador);
 
 function comparador() {
     return Math.random() - 0.5;
 }
 
-
 export default function App() {
 
     const letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+    // const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    
+    const palavra = palavras[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').split('')
+    console.log("PALAVRA AQUI:", palavra)
 
     const [errors, setErrors] = useState(0);
 
     const [display, setDisplay] = useState("display-none")
 
     const [letraClicada, setLetraClicada] = useState(letras)
+    console.log('letraClicada ANTES:', letraClicada)
 
-    console.log('letraClicada:', letraClicada)
-
-    const palavra = palavras[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').split('')
-    console.log("PALAVRA AQUI:", palavra)
 
     const imgs = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
 
@@ -74,8 +74,10 @@ export default function App() {
     const palavraAjeitada = arrayAjeitado(palavras[0].normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').split(''))
     console.log('PALAVRA AJEITADA AQUI:', palavraAjeitada)
 
+
+
     function Letras({ letras }) {
-        console.log('letras aqui:', letras)
+        console.log('LETRAAAAAAAAS AQUI:', letras)
         return (
             <div className="keyboard-container">
                 {letras.map((l, index) => {
@@ -94,6 +96,7 @@ export default function App() {
         )
     }
 
+
     function startGame() {
         setErrors(0)
         setDisplay("spaces")
@@ -106,32 +109,30 @@ export default function App() {
     }
 
     function arrayAjeitado(array) {
-        // console.log('parametro array de treat array:', array)
+        console.log('parametro array de treat array:', array)
         return array.filter((i,
             index) => array.indexOf(i) === index);
     }
-    // console.log('final arrayAjeitado(array):', arrayAjeitado(['a', 'm', 'a', 'r']))
-
 
     function cliqueiNaLetra(e) {
         let letraEscolhida = e.target.value
         console.log('letraEscolhida:', letraEscolhida)
         console.log('letraClicada::', letraClicada)
 
-        if (!letraClicada.includes(letraEscolhida)) {
-            setLetraClicada([...letraClicada, letraEscolhida])
 
             if (palavra.includes(letraEscolhida.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toLowerCase())) {
+
                 novasLetrasDescobertas = [...letrasDescobertas, letraEscolhida.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '')]
                 console.log('novasLetrasDescobertas DEPOIS', novasLetrasDescobertas)
                 setLetrasDescobertas(novasLetrasDescobertas)
 
                 console.log('novasLetrasDescobertas.lengt', novasLetrasDescobertas.length)
                 console.log('palavraAjeitada', palavraAjeitada.length)
+
+
                 if (novasLetrasDescobertas.length === palavraAjeitada.length) {
                     setWin(true)
                     setDisabled(true)
-                    setLetraClicada(letras)
                 }
             }
             else {
@@ -139,11 +140,9 @@ export default function App() {
                 if (errors + 1 === 6) {
                     setLose(true)
                     setDisabled(true)
-                    setLetraClicada(letras)
                 }
             }
         }
-    }
 
     return (
         <div className="App">
@@ -162,7 +161,7 @@ export default function App() {
                                 className={"spaces " + (win ? "win" : "") + (lose ? "lose" : "")}
                                 data-test="word"
                                 key={index}
-                            >{letrasDescobertas.includes(letterinarray.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toUpperCase()) || win || lose ? letterinarray : "_"}</p>
+                            >{letrasDescobertas.includes(letterinarray) || win || lose ? letterinarray : "_"}</p>
                         ))}
                     </div>
                 </div>
