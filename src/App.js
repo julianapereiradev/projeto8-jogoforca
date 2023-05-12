@@ -161,7 +161,7 @@ export default function App() {
                                 className={"spaces " + (win ? "win" : "") + (lose ? "lose" : "")}
                                 data-test="word"
                                 key={index}
-                            >{letrasDescobertas.includes(letterinarray) || win || lose ? letterinarray : "_"}</p>
+                                >{letrasDescobertas.includes(letterinarray.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toUpperCase()) || win || lose ? letterinarray : "_"}</p>
                         ))}
                     </div>
                 </div>
