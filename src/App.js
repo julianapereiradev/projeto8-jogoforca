@@ -44,39 +44,49 @@ function comparador() {
 
 export default function App() {
 
-    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    const letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
     const [errors, setErrors] = useState(0);
+
     const [display, setDisplay] = useState("display-none")
-    const [lettersclicked, setLettersClicked] = useState(letters)
-    console.log('lettersclicked:', lettersclicked)
-    const word = palavras[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').split('')
-    console.log("WORD AQUI:", word)
+
+    const [letraClicada, setLetraClicada] = useState(letras)
+
+    console.log('letraClicada:', letraClicada)
+
+    const palavra = palavras[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').split('')
+    console.log("PALAVRA AQUI:", palavra)
 
     const imgs = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
-    let newLettersDiscovered = []
-    console.log('newLettersDiscovered ANTES:', newLettersDiscovered)
-    const [lettersdiscovered, setLettersDiscovered] = useState(newLettersDiscovered)
-    console.log('lettersdiscovered ATENS:', lettersdiscovered)
+
+    let novasLetrasDescobertas = []
+
+    console.log('novasLetrasDescobertas ANTES:', novasLetrasDescobertas)
+    const [letrasDescobertas, setLetrasDescobertas] = useState(novasLetrasDescobertas)
+    console.log('letrasDescobertas ATENS:', letrasDescobertas)
+
     const [win, setWin] = useState(false)
+
     const [lose, setLose] = useState(false)
+
     const [disabled, setDisabled] = useState(true)
-    const treatedWord = treatArray(palavras[0].normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').split(''))
 
+    const palavraAjeitada = arrayAjeitado(palavras[0].normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').split(''))
+    console.log('PALAVRA AJEITADA AQUI:', palavraAjeitada)
 
-    function Letter({ letters }) {
-        console.log('letters aqui:', letters)
+    function Letras({ letras }) {
+        console.log('letras aqui:', letras)
         return (
             <div className="keyboard-container">
-                {letters.map((l, index) => {
+                {letras.map((l, index) => {
                     return <button
                         key={index}
                         data-test="letter"
                         value={l}
                         disabled={disabled}
-                        onClick={chooseLetter}
-                        className={lettersclicked.includes(l) ? "letter disabled" : "letter enabled"}
-                        >
+                        onClick={cliqueiNaLetra}
+                        className={letraClicada.includes(l) ? "letter disabled" : "letter enabled"}
+                    >
                         {l}
                     </button>;
                 })}
@@ -87,41 +97,41 @@ export default function App() {
     function startGame() {
         setErrors(0)
         setDisplay("spaces")
-        setLettersClicked([]);
-        setLettersDiscovered([])
+        setLetraClicada([]);
+        setLetrasDescobertas([])
         setWin(false)
         setLose(false)
         setDisabled(false)
         palavras.sort(comparador)
     }
 
-    function treatArray(array) {
+    function arrayAjeitado(array) {
         // console.log('parametro array de treat array:', array)
         return array.filter((i,
             index) => array.indexOf(i) === index);
     }
-    // console.log('final treatArray(array):', treatArray(['a', 'm', 'a', 'r']))
+    // console.log('final arrayAjeitado(array):', arrayAjeitado(['a', 'm', 'a', 'r']))
 
 
-    function chooseLetter(e) {
-        let letterpicked = e.target.value
-        console.log('letterpicked:', letterpicked)
-        console.log('lettersCLicked::', lettersclicked)
+    function cliqueiNaLetra(e) {
+        let letraEscolhida = e.target.value
+        console.log('letraEscolhida:', letraEscolhida)
+        console.log('letraClicada::', letraClicada)
 
-        if (!lettersclicked.includes(letterpicked)) {
-            setLettersClicked([...lettersclicked, letterpicked])
+        if (!letraClicada.includes(letraEscolhida)) {
+            setLetraClicada([...letraClicada, letraEscolhida])
 
-            if (word.includes(letterpicked.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toLowerCase())) {
-                newLettersDiscovered = [...lettersdiscovered, letterpicked.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '')]
-                console.log('newLettersDiscovered DEPOIS', newLettersDiscovered)
-                setLettersDiscovered(newLettersDiscovered)
+            if (palavra.includes(letraEscolhida.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toLowerCase())) {
+                novasLetrasDescobertas = [...letrasDescobertas, letraEscolhida.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '')]
+                console.log('novasLetrasDescobertas DEPOIS', novasLetrasDescobertas)
+                setLetrasDescobertas(novasLetrasDescobertas)
 
-                console.log('newLettersDiscovered.lengt', newLettersDiscovered.length)
-                console.log('treatedWord', treatedWord.length)
-                if (newLettersDiscovered.length === treatedWord.length) {
+                console.log('novasLetrasDescobertas.lengt', novasLetrasDescobertas.length)
+                console.log('palavraAjeitada', palavraAjeitada.length)
+                if (novasLetrasDescobertas.length === palavraAjeitada.length) {
                     setWin(true)
                     setDisabled(true)
-                    setLettersClicked(letters)
+                    setLetraClicada(letras)
                 }
             }
             else {
@@ -129,7 +139,7 @@ export default function App() {
                 if (errors + 1 === 6) {
                     setLose(true)
                     setDisabled(true)
-                    setLettersClicked(letters)
+                    setLetraClicada(letras)
                 }
             }
         }
@@ -147,12 +157,12 @@ export default function App() {
                 <div className="board-right">
                     <button data-test="choose-word" className="button-sort-word" onClick={startGame}>Escolher palavra</button>
                     <div className={display}>
-                        {word.map((letterinarray, index) => (
+                        {palavra.map((letterinarray, index) => (
                             <p
                                 className={"spaces " + (win ? "win" : "") + (lose ? "lose" : "")}
                                 data-test="word"
                                 key={index}
-                            >{lettersdiscovered.includes(letterinarray.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toUpperCase()) || win || lose ? letterinarray : "_"}</p>
+                            >{letrasDescobertas.includes(letterinarray.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, '').toUpperCase()) || win || lose ? letterinarray : "_"}</p>
                         ))}
                     </div>
                 </div>
@@ -160,7 +170,7 @@ export default function App() {
             </div>
 
             <div className="keyboard-center">
-                <Letter letters={letters} />
+                <Letras letras={letras} />
             </div>
 
         </div>
