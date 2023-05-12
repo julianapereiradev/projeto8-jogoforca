@@ -1,32 +1,17 @@
-// import forca0 from './assets/forca0.png'
+import React from 'react'
 
-// export default function Jogo() {
+export default function Jogo(props){
 
-// function chooseWord() {
-//     alert('Cliquei')
-// }
+	return(
+		<>
+			<div className='jogo'>
+				<img src = {`./assets/forca${props.forcaImg}.png`} data-test="game-image" alt="jogo imag"/>
+				<div className='lado-esquerdo'>
+					<button className='escolher hover-anim' onClick={props.escolherPalavra} data-test="choose-word">Escolher Palavra</button>
 
-//     return (
-//         <div className="board-container">
-//             <div className="board-left">
-//                 <img src={forca0} alt="forca0" />
-//             </div>
-//             <div className='board-right'>
-//                 <button className='button-sort-word' onClick={chooseWord}>
-//                     Escolher Palavra
-//                 </button>
-//                 <div className='letter-container display-none'>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                     <p className='letter-underline'></p>
-//                 </div>
-//             </div>
-//         </div>
-
-//     )
-// }
+					<div className={props.classe} data-test="word" data-answer={props.palavra}>{props.palavraEncripted}</div>
+				</div>
+			</div>
+		</>
+	)
+}
