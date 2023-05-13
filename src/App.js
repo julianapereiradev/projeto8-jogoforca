@@ -5,97 +5,85 @@ import palavras from './palavras';
 
 export default function App() {
 
-  const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
-  const [forcaImg, setForcaImg] = React.useState(0);
-  const [palavra, setPalavra] = React.useState("");
-  const [palavraArray, setPalavraArray] = React.useState([]);
-  const [palavraEncripted, setEncripted] = React.useState([]);
-  const [letrasSelecionadas, setLetrasSel] = React.useState(alfabeto);
-  console.log('no useState letrasSelecionadas é', letrasSelecionadas)
-  const [winLoseState, setWinLose] = React.useState("palavra");
+    const [palavra, setPalavra] = React.useState("");
+    const [erros, setErros] = React.useState(0);
+    const [letrasClicadas, setLetrasClicadas] = React.useState(alfabeto);
+    const [palavraDoDiaArray, setPalavradDoDiaArray] = React.useState([]);
+    const [palavraArrayTracos, setPalavraArrayTracos] = React.useState([]);
+    const [acabouOJogo, setAcabouOJogo] = React.useState("word-color-black");
 
-  function escolherPalavra() {
-    setLetrasSel([]);
-    setForcaImg(0);
-    setWinLose("palavra");
-    const palavraSecreta = palavras[Math.floor(Math.random() * palavras.length)];
-    console.log('palavra secreta aqui:', palavraSecreta);
 
-    const arrayCrypto = Array(palavraSecreta.length).fill('_');
-    setPalavra(palavraSecreta);
-    setEncripted(arrayCrypto);
-    setPalavraArray(palavraSecreta.split(''));
-  }
+    function escolherPalavra() {
+        setLetrasClicadas([]);
+        setErros(0);
+        setAcabouOJogo("word-color-black");
+        const palavraDoDia = palavras[Math.floor(Math.random() * palavras.length)];
+        console.log('palavra do dia aqui:', palavraDoDia);
 
-  function chutarLetra(lt) {
-    console.log('quem é lt', lt)
+        const palavraArrayComTracos = Array(palavraDoDia.length).fill('_');
+        setPalavra(palavraDoDia);
+        setPalavraArrayTracos(palavraArrayComTracos);
+        setPalavradDoDiaArray(palavraDoDia.split(''));
+    }
 
-    console.log('qm é letrasSelecionadas', letrasSelecionadas)
-    const tempArray = [...letrasSelecionadas];
-    console.log('tempArray antes do push:', tempArray)
-    tempArray.push(lt);
-    console.log('tempArray depois do push:', tempArray)
-    setLetrasSel(tempArray);
 
-    if (palavraArray.includes(lt)) {
-      const newEncriptedArray = [...palavraEncripted];
-      for (let i = 0; i < palavraArray.length; i++) {
-        if (palavraArray[i] === lt) {
-          newEncriptedArray[i] = lt.toLocaleLowerCase();
+    function chutarLetra(letraDoItem) {
+        const letraAdcsNoArray = [...letrasClicadas];
+        letraAdcsNoArray.push(letraDoItem);
+        setLetrasClicadas(letraAdcsNoArray);
+
+        if (palavraDoDiaArray.includes(letraDoItem)) {
+            const palavraArraySemTracos = [...palavraArrayTracos];
+            for (let i = 0; i < palavraDoDiaArray.length; i++) {
+                if (palavraDoDiaArray[i] === letraDoItem) {
+                    palavraArraySemTracos[i] = letraDoItem.toLocaleLowerCase();
+                }
+            }
+            setPalavraArrayTracos(palavraArraySemTracos);
+
+            if (!palavraArraySemTracos.includes('_')) {
+                setAcabouOJogo("word-color-green");
+                setLetrasClicadas(alfabeto);
+            }
+
         }
-      }
-      setEncripted(newEncriptedArray);
+        else {
+            const total = erros + 1;
+            setErros(total);
 
-      checkWinGame(newEncriptedArray);
+            if (total === 6) {
+                setLetrasClicadas(alfabeto);
+                setPalavraArrayTracos(palavraDoDiaArray);
+                setAcabouOJogo("word-color-red");
+            }
+        }
     }
-    else {
-      const sum = forcaImg + 1;
-      setForcaImg(sum);
-      checkLoseGame(sum);
-    }
 
-  }
-
-  function checkWinGame(arr) {
-    if (!arr.includes('_') && arr !== []) {
-      setWinLose("palavra green");
-      setLetrasSel(alfabeto);
-    }
-  }
-
-  function checkLoseGame(n) {
-    if (n === 6) {
-
-      setLetrasSel(alfabeto);
-      setEncripted(palavraArray);
-      setWinLose("palavra red");
-    }
-  }
-
-  return (
-    <>
-      <Jogo
-        forcaImg={forcaImg}
-        palavraEncripted={palavraEncripted}
-        classe={winLoseState}
-        escolherPalavra={escolherPalavra}
-        palavra={palavra}
-      />
-      <div className="bottom">
-        <div className="letras-container">
-          {alfabeto.map((element, index) =>
-            <Letras
-              key={index}
-              classe={!letrasSelecionadas.includes(element) ? "letras" : "letras letra-clicada"}
-              letra={element}
-              clicked={!letrasSelecionadas.includes(element) ? chutarLetra : ''}
-              disabled={!letrasSelecionadas.includes(element) ? false : true}
+    return (
+        <div className="App">
+            <Jogo
+                erros={erros}
+                palavraArrayTracos={palavraArrayTracos}
+                corPalavra={acabouOJogo}
+                escolherPalavra={escolherPalavra}
             />
-          )
-          }
+
+            <div className="keyboard-center">
+                <div className="keyboard-container">
+                    {alfabeto.map((letraItem, index) =>
+                        <Letras
+                            key={index}
+                            classename={!letrasClicadas.includes(letraItem) ? "letter-unclicked" : "letter-clicked"}
+                            letra={letraItem}
+                            clicked={!letrasClicadas.includes(letraItem) ? chutarLetra : ''}
+                            disabled={!letrasClicadas.includes(letraItem) ? false : true}
+                        />
+                    )
+                    }
+                </div>
+            </div>
         </div>
-      </div>
-    </>
-  )
+    )
 }

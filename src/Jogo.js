@@ -1,15 +1,32 @@
 import React from 'react'
 
-export default function Jogo(props){
+export default function Jogo(props) {
 
-	return(
+	return (
 		<>
-			<div className='jogo'>
-				<img src = {`./assets/forca${props.forcaImg}.png`} data-test="game-image" alt="jogo imag"/>
-				<div className='lado-esquerdo'>
-					<button className='escolher hover-anim' onClick={props.escolherPalavra} data-test="choose-word">Escolher Palavra</button>
+			<div className='board-container'>
+				<div className='board-left'>
+					<img
+						src={`./assets/forca${props.erros}.png`}
+						data-test="game-image"
+						alt="jogo imag"
+					/>
+				</div>
 
-					<div className={props.classe} data-test="word" data-answer={props.palavra}>{props.palavraEncripted}</div>
+				<div className='board-right'>
+					<button
+						className='button-sort-word'
+						onClick={props.escolherPalavra}
+						data-test="choose-word">
+						Escolher Palavra
+					</button>
+
+					<div
+						className={props.corPalavra}
+						data-test="word"
+					>
+						{props.palavraArrayTracos}
+					</div>
 				</div>
 			</div>
 		</>
